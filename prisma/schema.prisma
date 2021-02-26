@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model test {
+  test String? @db.VarChar(8)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model test_2 {
+  id   Int?
+  name String? @db.VarChar(50)
+
+  @@ignore
+}
+
+model teams {
+  id         Int     @id @default(autoincrement())
+  school     String  @db.VarChar
+  mascot     String? @db.VarChar(100)
+  alt_name_1 String? @db.VarChar(100)
+  alt_name_2 String? @db.VarChar(100)
+  alt_name_3 String? @db.VarChar(100)
+  conference String  @db.VarChar(20)
+  division   String? @db.VarChar(30)
+  color      String? @db.VarChar(20)
+  alt_color  String? @db.VarChar(20)
+  logos_1    String? @db.VarChar(300)
+  logos_2    String? @db.VarChar(300)
+}

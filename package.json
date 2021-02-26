@@ -10,6 +10,7 @@
     "kill": "kill $(lsof -t -i:5000) | exit 0"
   },
   "dependencies": {
+    "@prisma/client": "^2.17.0",
     "@types/cheerio": "^0.22.18",
     "axios": "^0.21.1",
     "body-parser": "^1.18.3",
@@ -29,6 +30,7 @@
     "@types/sequelize": "^4.28.8",
     "concurrently": "^4.1.2",
     "kill-port": "^1.6.0",
+    "prisma": "^2.17.0",
     "tslint": "^6.1.2",
     "typescript": "^3.8.3"
   }
