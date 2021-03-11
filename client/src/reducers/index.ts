@@ -12,6 +12,8 @@ const reducer = (state: any, action: any) => {
       };
     case "FETCH_SUCCEEDED":
       return action.returnInfo;
+    case "SET_TEAM":
+      return { teamInfo: action.team };
     default:
       return state;
   }

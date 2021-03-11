@@ -17,10 +17,10 @@ app.get("/api/greeting", (req: any, res: any) => {
   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
 });
 
-app.get("/api/test", async (req: any, res: any) => {
+app.get("/api/team/:team", async (req: any, res: any) => {
   const teams = await prisma.teams.findMany({
     where: {
-      school: "Florida",
+      school: req.params.team,
     },
   });
   await prisma.$disconnect();
