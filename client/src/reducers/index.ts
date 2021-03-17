@@ -1,22 +1,10 @@
-const reducer = (state: any, action: any) => {
-  switch (action.type) {
-    case "CONSOLE_SUCCESS":
-      return {
-        loading: false,
-        error: false,
-      };
-    case "CONSOLE_START":
-      return {
-        loading: true,
-        error: false,
-      };
-    case "FETCH_SUCCEEDED":
-      return action.returnInfo;
-    case "SET_TEAM":
-      return { teamInfo: action.team };
-    default:
-      return state;
-  }
-};
+import { combineReducers } from "redux";
+import generalReducer from "./generalReducer";
+import teamReducer from "./teamReducer";
 
-export default reducer;
+export const rootReducer = combineReducers({
+  general: generalReducer,
+  team: teamReducer,
+});
+
+export type RootState = ReturnType<typeof rootReducer>;
