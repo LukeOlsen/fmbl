@@ -30,15 +30,12 @@ const routeComponents = routes.map(({ path, component }, key) => (
 ));
 
 function App() {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   return (
     <Router>
-      <div className="md:grid flex-col md:grid-cols-9 md:min-h-screen w-full bg-gray-700 text-indigo-400">
+      <div className="grid-cols-12 grid flex-col md:grid-cols-9 min-h-screen w-full bg-gray-700 text-indigo-400">
         <Navbar />
-        <div className="md:grid-span-8">
-          <div onClick={() => dispatch({ type: "TRY_IT_OUT"})}>try clicking this</div>
-          <header className="text-center">Welcome to here</header>
+        <div className="col-span-12 sm:col-span-6 md:col-span-7 lg:col-span-8">
           {routeComponents}
         </div>
       </div>

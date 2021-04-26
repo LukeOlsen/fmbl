@@ -7,32 +7,146 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model test {
-  test String? @db.VarChar(8)
+model records {
+  id                      Int     @id @default(autoincrement())
+  year                    Int?
+  team                    String?
+  conference              String?
+  division                String?
+  total_games             Int?
+  total_wins              Int?
+  total_losses            Int?
+  total_ties              Int?
+  conference_games_games  Int?
+  conference_games_wins   Int?
+  conference_games_losses Int?
+  conference_games_ties   Int?
+  home_games_games        Int?
+  home_games_wins         Int?
+  home_games_losses       Int?
+  home_games_ties         Int?
+  away_games_games        Int?
+  away_games_wins         Int?
+  away_games_losses       Int?
+  away_games_ties         Int?
+  team_id                 Int?
+  teams                   teams?  @relation(fields: [team_id], references: [id])
+}
 
-  @@ignore
+model recruits {
+  id            Int     @id @default(autoincrement())
+  recruitType   String?
+  year          Int?
+  ranking       Int?
+  name          String?
+  school        String?
+  committedTo   String?
+  position      String?
+  height        Int?
+  weight        Int?
+  stars         Int?
+  rating        Float?
+  city          String?
+  stateProvince String?
+  country       String?
+  team_id       Int?
+  longitude     Int?
+  latitude      Int?
+  fips          Int?
+  teams         teams?  @relation(fields: [team_id], references: [id])
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
-model test_2 {
-  id   Int?
-  name String? @db.VarChar(50)
+model talents {
+  year    Int?
+  school  String?
+  talent  Float?
+  team_id Int?
+  teams   teams?  @relation(fields: [team_id], references: [id])
 
   @@ignore
 }
 
 model teams {
-  id         Int     @id @default(autoincrement())
-  school     String  @db.VarChar
-  mascot     String? @db.VarChar(100)
-  alt_name_1 String? @db.VarChar(100)
-  alt_name_2 String? @db.VarChar(100)
-  alt_name_3 String? @db.VarChar(100)
-  conference String  @db.VarChar(20)
-  division   String? @db.VarChar(30)
-  color      String? @db.VarChar(20)
-  alt_color  String? @db.VarChar(20)
-  logos_1    String? @db.VarChar(300)
-  logos_2    String? @db.VarChar(300)
+  id           Int        @id
+  school       String?
+  mascot       String?
+  abbreviation String?
+  alt_name_1   String?
+  alt_name_2   String?
+  alt_name_3   String?
+  conference   String?
+  division     String?
+  color        String?
+  alt_color    String?
+  logos_0      String?
+  logos_1      String?
+  pbp2020      pbp2020[]
+  records      records[]
+  recruits     recruits[]
+  talents      talents[]  @ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model drives {
+  offense             String?
+  offense_conference  String?
+  defense             String?
+  defense_conference  String?
+  game_id             Decimal? @db.Decimal
+  id                  Decimal  @id @db.Decimal
+  drive_number        Int?
+  scoring             Boolean?
+  start_period        Int?
+  start_yardline      Int?
+  start_yards_to_goal Int?
+  start_time_minutes  Int?     @map("start_time.minutes")
+  start_time_seconds  Int?     @map("start_time.seconds")
+  end_period          Int?
+  end_yardline        Int?
+  end_yards_to_goal   Int?
+  end_time_minutes    Int?     @map("end_time.minutes")
+  end_time_seconds    Int?     @map("end_time.seconds")
+  elapsed_minutes     Int?     @map("elapsed.minutes")
+  elapsed_seconds     Int?     @map("elapsed.seconds")
+  plays               Int?
+  yards               Int?
+  drive_result        String?
+  is_home_offense     Boolean?
+  start_offense_score Int?
+  start_defense_score Int?
+  end_offense_score   Int?
+  end_defense_score   Int?
+}
+
+model pbp2020 {
+  id                 Decimal  @id @db.Decimal
+  offense            String?
+  offense_conference String?
+  defense            String?
+  defense_conference String?
+  home               String?
+  away               String?
+  offense_score      Int?
+  defense_score      Int?
+  game_id            Decimal? @db.Decimal
+  drive_id           Decimal? @db.Decimal
+  drive_number       Int?
+  play_number        Int?
+  period             Int?
+  clock_minutes      Int?     @map("clock.minutes")
+  clock_seconds      Int?     @map("clock.seconds")
+  offense_timeouts   Int?
+  defense_timeouts   Int?
+  yard_line          Int?
+  yards_to_goal      Int?
+  down               Int?
+  distance           Int?
+  scoring            Boolean?
+  yards_gained       Int?
+  play_type          String?
+  play_text          String?
+  ppa                String?
+  team_id            Int?
+  teams              teams?   @relation(fields: [team_id], references: [id])
 }
