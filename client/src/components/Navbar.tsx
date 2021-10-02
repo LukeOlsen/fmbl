@@ -14,10 +14,10 @@ const ConferenceSection = (props: {
 }) => {
   const { conf, teams, show, open } = props;
   return (
-    <div className="relative">
+    <div className="relative sticky">
       <button
         onClick={() => open(!show)}
-        className="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent sm:rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+        className="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left sm:rounded-lg  dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
       >
         <div className="flex items-center">
           <div>{conf}</div>
@@ -37,7 +37,7 @@ const ConferenceSection = (props: {
             {teams.map((x) => {
               return (
                 <Link
-                  className="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent sm:rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                  className="block px-4 py-2 mt-2 text-sm font-semibold  sm:rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                   to={"/team/" + x}
                 >
                   {x}
@@ -56,7 +56,7 @@ export const Navbar = () => {
   const [showsec, toggleSec] = useState(false);
   const [showMobile, toggleMobile] = useState(false);
   return (
-    <nav className="col-span-12 h-10 sm:h-screen sm:col-span-3 md:col-span-2 lg:col-span-1 md:block sm:px-4 sm:pb-4 md:pb-0 md:overflow-y-auto bg-gray-600 shadow-md">
+    <nav className="col-span-12 h-10 sm:h-screen sm:col-span-3 md:col-span-2 lg:col-span-1 md:block sm:px-4 sm:pb-4 md:pb-0 md:overflow-y-auto xs:bg-gray-600 shadow-md">
       <div className="left-0 flex items-center sm:hidden">
         {/* <!-- Mobile menu button--> */}
         <button
@@ -115,28 +115,28 @@ export const Navbar = () => {
       <div
         className={`${
           showMobile ? "block" : "hidden"
-        } rounded-b-sm sm:rounded-none bg-black sm:bg-gray-600 sm:block md:block`}
+        } rounded-b-sm sm:rounded-none bg-gray-900 sm:block sm:bg-gray-700 relative z-50`}
       >
-        <a
+        <Link
           className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 sm:rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-          href="#"
+          to="/"
         >
-          Blog
-        </a>
+          Home
+        </Link>
         <a
-          className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 bg-transparent sm:rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 sm:rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
           href="#"
         >
           Portfolio
         </a>
         <a
-          className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 bg-transparent sm:rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 sm:rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
           href="#"
         >
           About
         </a>
         <a
-          className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 bg-transparent sm:rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 sm:rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
           href="#"
         >
           Contact
