@@ -1,4 +1,4 @@
-import { SET_TEAM } from "../constants/constants";
+import { SET_TEAM } from "../constants";
 
 const teamState = {};
 const teamReducer = (state = teamState, action: any) => {
