@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, connect } from "react-redux";
 import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 import { Team } from "./components/Team";
 import { Navbar } from "./components/Navbar";
@@ -31,12 +31,24 @@ const routeComponents = routes.map(({ path, component }, key) => (
   <Route exact path={path} component={component} key={key} />
 ));
 
-function App() {
+function App({ cache }: any) {
   const dispatch = useDispatch();
+  console.log(cache);
+
+  let done = false;
+
+  if (cache) {
+    done = true;
+  }
+  // const state: any = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch({ type: "LOAD_CACHE" });
+  }, [done]);
   return (
     <Router>
       <div className="grid-cols-12 grid flex-col md:grid-cols-9 min-h-screen w-full bg-gray-700 text-indigo-400 mx-h-screen overflow-auto">
-        <Navbar />
+        <Navbar teams={cache.teams} />
         <div className="col-span-12 sm:col-span-9 md:col-span-7 lg:col-span-8 overflow-y-auto xs:z-0">
           {routeComponents}
         </div>
@@ -45,4 +57,11 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state: any) => {
+  console.log(state);
+  return {
+    cache: state.cache,
+  };
+};
+
+export default connect(mapStateToProps)(App);
