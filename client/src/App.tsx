@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Team } from "./components/Team";
 import { Navbar } from "./components/Navbar";
 import { Home } from "./components/Home";

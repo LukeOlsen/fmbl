@@ -8,7 +8,7 @@ const cacheReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SET_CACHE:
       return {
-        cache: action.cache,
+        ...action.cache,
       };
     default:
       return state;

@@ -15,6 +15,9 @@ export const creatCache = async () => {
       logos_0: true,
       logos_1: true,
     },
+    orderBy: {
+      conference: "asc",
+    },
   });
   console.log("cache loaded");
   return cache;
