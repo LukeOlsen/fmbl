@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector, connect } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
-import { GET_TEAM } from "../constants";
+import { GET_TEAM, AVAILABLE_YEARS } from "../constants";
 import { recordsBlock } from "../types/records";
 import { recruit } from "../types/recruits";
 import { teamBlock } from "../types/teams";
@@ -12,18 +12,47 @@ interface teamProp extends teamBlock {
   recruits: [recruit];
 }
 
+const YearSelector = ({ selectedYear, updateYear, years }: any) => {
+  return (
+    <select value={selectedYear} onChange={(e) => updateYear(e.target.value)}>
+      {years.map((year: any) => (
+        <option key={year} value={year}>
+          {year}
+        </option>
+      ))}
+    </select>
+  );
+};
+
 export const Team = ({ match }: RouteComponentProps<RParam>) => {
   const dispatch = useDispatch();
-  const result: any = useSelector((state) => state);
-  const team: teamProp = result.team.teamInfo;
+  const state: any = useSelector((state) => state);
+  const team: teamProp = state.team.teamInfo;
+
+  const [selectedYear, updateYear] = useState(2021);
 
   useEffect(() => {
-    dispatch({ type: GET_TEAM, team: match.params.teamName });
-  }, [match.params.teamName]);
+    if (!state.cache) {
+      dispatch({ type: "LOAD_CACHE" });
+    }
+  }, [state.cache]);
 
+  useEffect(() => {
+    const cacheTeam: teamBlock = state.cache.teams.find(
+      (team: teamBlock) => team.school === match.params.teamName
+    );
+    if (cacheTeam) {
+      dispatch({ type: GET_TEAM, team: cacheTeam.id, year: selectedYear });
+    }
+  }, [match.params.teamName, selectedYear, state.cache]);
   return (
     <div className="mt-2 flex">
-      <div className="flex-1 text-4xl mx-4">{match.params.teamName}</div>
+      {team && <div className="flex-1 text-4xl mx-4">{team.school}</div>}
+      <YearSelector
+        selectedYear={selectedYear}
+        updateYear={updateYear}
+        years={AVAILABLE_YEARS}
+      />
       <div>
         {team && (
           <div className="flex-1 flex pr-10">
@@ -33,11 +62,15 @@ export const Team = ({ match }: RouteComponentProps<RParam>) => {
             )}
             <div className="text-4xl flex">
               <div className="mx-2">
-                {team.records.length > 0 ? team.records[0].total_wins : ""}
+                {team?.records && team?.records.length > 0
+                  ? team.records[0].total_wins
+                  : ""}
               </div>
               <span className="mx-1">-</span>
               <div className="mx-2">
-                {team.records.length > 0 ? team.records[0].total_losses : ""}
+                {team?.records && team?.records.length > 0
+                  ? team.records[0].total_losses
+                  : ""}
               </div>
             </div>
           </div>
