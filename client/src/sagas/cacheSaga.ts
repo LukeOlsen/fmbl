@@ -5,8 +5,8 @@ import { LOAD_CACHE, LOADING, DONE_LOADING, SET_CACHE } from "../constants";
 function* loadCache(action: { type: string }) {
   yield put({ type: LOADING });
   try {
+    // @ts-ignore
     const res = yield axios.get(`/api/cache`);
-    console.log(res.data);
     yield put({ type: SET_CACHE, cache: res.data });
   } catch (error) {
     console.log(error);

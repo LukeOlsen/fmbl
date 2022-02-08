@@ -5,6 +5,7 @@ import { GET_TEAM, SET_TEAM, LOADING, DONE_LOADING } from "../constants";
 function* fetchTeamInfo(action: { type: string; team: string; year: number }) {
   yield put({ type: LOADING });
   try {
+    // @ts-ignore
     const res = yield axios.get(`/api/team/${action.team}?year=${action.year}`);
     yield put({ type: SET_TEAM, team: res.data[0] });
   } catch (error) {

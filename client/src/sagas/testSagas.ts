@@ -7,6 +7,7 @@ function* helloSaga(): Generator {
 
 function* fetchData(action: object) {
   try {
+    // @ts-ignore
     const data = yield axios.get("/api/test");
     const returnInfo = data.data.myname;
     yield put({ type: "FETCH_SUCCEEDED", returnInfo });
