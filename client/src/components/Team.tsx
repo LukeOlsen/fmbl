@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_TEAM, AVAILABLE_YEARS } from "../constants";
 import { recordsBlock } from "../types/records";
@@ -33,11 +33,12 @@ const YearSelector = ({ selectedYear, updateYear, years }: any) => {
 export const Team = (props: any) => {
   let params = useParams();
   let location = useLocation();
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const state: any = useSelector((state) => state);
   const team: teamProp = state.team.teamInfo;
-
-  const [selectedYear, updateYear] = useState(2021);
+  const urlYear = location.search.split("=")[1];
+  const [selectedYear, updateYear] = useState(urlYear ? urlYear : 2021);
 
   useEffect(() => {
     if (!state.cache) {
@@ -53,6 +54,13 @@ export const Team = (props: any) => {
       dispatch({ type: GET_TEAM, team: cacheTeam.id, year: selectedYear });
     }
   }, [params.teamName, selectedYear, state.cache]);
+
+  useEffect(() => {
+    if (selectedYear) {
+      navigate(`/team/${params.teamName}?year=${selectedYear}`);
+    }
+  }, [selectedYear]);
+
   return (
     <div className="mt-2">
       <div className="flex">
