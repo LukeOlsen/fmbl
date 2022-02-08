@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Team } from "./components/Team";
 import { Navbar } from "./components/Navbar";
 import { Home } from "./components/Home";
@@ -9,7 +9,7 @@ import { routesWithComponents } from "./types/components";
 const routes: Array<routesWithComponents> = [
   {
     path: "/",
-    component: Home,
+    component: <Home />,
     name: "Home",
   },
   // {
@@ -18,7 +18,7 @@ const routes: Array<routesWithComponents> = [
   // },
   {
     path: "/team/:teamName",
-    component: Team,
+    component: <Team />,
     name: "Team",
   },
   // {
@@ -28,12 +28,11 @@ const routes: Array<routesWithComponents> = [
 ];
 
 const routeComponents = routes.map(({ path, component }, key) => (
-  <Route exact path={path} component={component} key={key} />
+  <Route path={path} element={component} key={key} />
 ));
 
 function App({ cache }: any) {
   const dispatch = useDispatch();
-  console.log(cache);
 
   let done = false;
 
@@ -50,7 +49,7 @@ function App({ cache }: any) {
       <div className="grid-cols-12 grid flex-col md:grid-cols-9 min-h-screen w-full bg-gray-700 text-indigo-400 mx-h-screen overflow-auto">
         <Navbar teams={cache.teams} />
         <div className="col-span-12 sm:col-span-9 md:col-span-7 lg:col-span-8 overflow-y-auto xs:z-0">
-          {routeComponents}
+          <Routes>{routeComponents}</Routes>
         </div>
       </div>
     </Router>
@@ -58,7 +57,6 @@ function App({ cache }: any) {
 }
 
 const mapStateToProps = (state: any) => {
-  console.log(state);
   return {
     cache: state.cache,
   };
