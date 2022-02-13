@@ -30,6 +30,9 @@ export const findTeamInfo = async (
         where: {
           year: Number(year) ? Number(year) + 1 : new Date().getFullYear() + 1,
         },
+        orderBy: {
+          rating: "desc",
+        },
       },
     },
   });
