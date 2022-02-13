@@ -23,6 +23,7 @@ export const findTeamInfo = async (
         select: {
           name: true,
           position: true,
+          year: true,
           stars: true,
           rating: true,
         },
