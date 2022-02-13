@@ -73,7 +73,7 @@ export const Navbar = ({ teams }: any) => {
     (x: teamBlock) => x.conference === "Big Ten"
   );
   return (
-    <nav className="col-span-12 h-10 sm:h-screen sm:col-span-3 md:col-span-2 lg:col-span-1 md:block sm:px-4 sm:pb-4 md:pb-0 md:overflow-y-auto xs:bg-gray-600 shadow-md">
+    <nav className="col-span-12 h-10 sm:h-screen sm:col-span-3 md:col-span-2 lg:col-span-1 md:block sm:px-4 sm:pb-4 md:pb-0 md:overflow-y-auto bg-gray-900 shadow-md">
       <div className="left-0 flex items-center sm:hidden">
         {/* <!-- Mobile menu button--> */}
         <button
@@ -132,28 +132,28 @@ export const Navbar = ({ teams }: any) => {
       <div
         className={`${
           showMobile ? "block" : "hidden"
-        } rounded-b-sm sm:rounded-none bg-gray-900 sm:block sm:bg-gray-700 relative z-50`}
+        } rounded-b-sm sm:rounded-none bg-gray-900 sm:block relative z-50`}
       >
         <Link
-          className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 sm:rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          className="block px-4 py-2 sm:mt-2 text-sm font-semibold sm:rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
           to="/"
         >
           Home
         </Link>
         <a
-          className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 sm:rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          className="block px-4 py-2 sm:mt-2 text-sm font-semibold sm:rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
           href="#"
         >
           Portfolio
         </a>
         <a
-          className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 sm:rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          className="block px-4 py-2 sm:mt-2 text-sm font-semibold sm:rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
           href="#"
         >
           About
         </a>
         <a
-          className="block px-4 py-2 sm:mt-2 text-sm font-semibold text-white sm:text-gray-900 sm:rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          className="block px-4 py-2 sm:mt-2 text-sm font-semibold sm:rounded-lg dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
           href="#"
         >
           Contact
