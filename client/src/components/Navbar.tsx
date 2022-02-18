@@ -15,7 +15,7 @@ const ConferenceSection = (props: {
     <div className="relative sticky">
       <button
         onClick={() => open(!show)}
-        className="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left sm:rounded-lg  dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+        className="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left sm:rounded-lg  md:block hover:text-gray-900 hover:bg-gray-400 focus:outline-none focus:shadow-outline"
       >
         <div className="flex items-center">
           <div>{conf}</div>
@@ -31,7 +31,7 @@ const ConferenceSection = (props: {
       </button>
       {show && (
         <div>
-          <div className="px-2 py-2 bg-gray-900 sm:bg-gray-500 sm:rounded-md shadow dark-mode:bg-gray-900">
+          <div className="px-2 py-2 mt-2 bg-gray-900 sm:bg-gray-200 sm:rounded-md shadow dark-mode:bg-gray-900">
             {teams.map((x: teamBlock) => {
               return (
                 <Link
