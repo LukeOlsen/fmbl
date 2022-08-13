@@ -10,7 +10,7 @@
     "kill": "kill $(lsof -t -i:3001) | exit 0"
   },
   "dependencies": {
-    "@prisma/client": "^2.17.0",
+    "@prisma/client": "^3.9.2",
     "@types/cheerio": "^0.22.18",
     "axios": "^0.21.1",
     "body-parser": "^1.18.3",
@@ -23,7 +23,7 @@
     "nodemon": "^2.0.3",
     "prettier": "^1.19.1",
     "reflect-metadata": "^0.1.13",
-    "ts-node": "^8.10.1"
+    "ts-node": "^8.10.2"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
@@ -31,8 +31,8 @@
     "@types/sequelize": "^4.28.8",
     "concurrently": "^4.1.2",
     "kill-port": "^1.6.0",
-    "prisma": "^2.30.3",
+    "prisma": "^3.9.2",
     "tslint": "^6.1.2",
-    "typescript": "^3.8.3"
+    "typescript": "^4.7.4"
   }
 }
