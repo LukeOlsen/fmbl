@@ -15,7 +15,7 @@ const ConferenceSection = (props: {
     <div className="relative sticky">
       <button
         onClick={() => open(!show)}
-        className="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left sm:rounded-lg  md:block hover:text-gray-900 hover:bg-gray-400 focus:outline-none focus:shadow-outline"
+        className="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left sm:rounded-lg  md:block hover:text-gray-900 hover:bg-gray-200 focus:outline-none focus:shadow-outline"
       >
         <div className="flex items-center">
           <div>{conf}</div>

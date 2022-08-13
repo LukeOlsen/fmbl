@@ -63,7 +63,7 @@ export const Team = (props: any) => {
 
   return (
     <div className="mt-2">
-      <div className="flex">
+      <div className="flex mb-10">
         {team && <div className="flex-1 text-4xl mx-4">{team.school}</div>}
         <YearSelector
           selectedYear={selectedYear}
@@ -94,7 +94,7 @@ export const Team = (props: any) => {
           )}
         </div>
       </div>
-      <div>
+      <div className="flex">
         {team?.recruits && team?.recruits.length > 0 ? (
           <RecruitsTable recruits={team.recruits} />
         ) : (
