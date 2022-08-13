@@ -30,7 +30,7 @@ model records {
   away_games_losses       Int?
   away_games_ties         Int?
   team_id                 Int?
-  teams                   teams?  @relation(fields: [team_id], references: [id])
+  teams                   teams?  @relation(fields: [team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model recruits {
@@ -53,7 +53,7 @@ model recruits {
   longitude     Int?
   latitude      Int?
   fips          Int?
-  teams         teams?  @relation(fields: [team_id], references: [id])
+  teams         teams?  @relation(fields: [team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -62,29 +62,31 @@ model talents {
   school  String?
   talent  Float?
   team_id Int?
-  teams   teams?  @relation(fields: [team_id], references: [id])
+  teams   teams?  @relation(fields: [team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@ignore
 }
 
 model teams {
-  id           Int        @id
-  school       String?
-  mascot       String?
-  abbreviation String?
-  alt_name_1   String?
-  alt_name_2   String?
-  alt_name_3   String?
-  conference   String?
-  division     String?
-  color        String?
-  alt_color    String?
-  logos_0      String?
-  logos_1      String?
-  pbp2020      pbp2020[]
-  records      records[]
-  recruits     recruits[]
-  talents      talents[]  @ignore
+  id                                              Int             @id
+  school                                          String?
+  mascot                                          String?
+  abbreviation                                    String?
+  alt_name_1                                      String?
+  alt_name_2                                      String?
+  alt_name_3                                      String?
+  conference                                      String?
+  division                                        String?
+  color                                           String?
+  alt_color                                       String?
+  logos_0                                         String?
+  logos_1                                         String?
+  betting_lines_betting_lines_away_team_idToteams betting_lines[] @relation("betting_lines_away_team_idToteams")
+  betting_lines_betting_lines_home_team_idToteams betting_lines[] @relation("betting_lines_home_team_idToteams")
+  pbp2020                                         pbp2020[]
+  records                                         records[]
+  recruits                                        recruits[]
+  talents                                         talents[]       @ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
@@ -94,7 +96,7 @@ model drives {
   defense             String?
   defense_conference  String?
   game_id             Decimal? @db.Decimal
-  id                  Decimal  @id @db.Decimal
+  id                  Decimal  @id(map: "drives_old_pkey") @db.Decimal
   drive_number        Int?
   scoring             Boolean?
   start_period        Int?
@@ -148,5 +150,63 @@ model pbp2020 {
   play_text          String?
   ppa                String?
   team_id            Int?
-  teams              teams?   @relation(fields: [team_id], references: [id])
+  teams              teams?   @relation(fields: [team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model betting_lines {
+  game_id                                 Int?
+  home_team                               String?
+  home_score                              Int?
+  away_Team                               String?
+  away_score                              Int?
+  line_provider                           String?
+  over_under                              Float?
+  spread                                  Float?
+  formatted_spread                        String?
+  opening_spread                          Float?
+  opening_over_under                      Float?
+  home_moneyline                          Int?
+  away_moneyline                          Int?
+  id                                      Int     @id @unique(map: "lines_pkey") @default(autoincrement())
+  home_team_id                            Int?
+  away_team_id                            Int?
+  teams_betting_lines_away_team_idToteams teams?  @relation("betting_lines_away_team_idToteams", fields: [away_team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  teams_betting_lines_home_team_idToteams teams?  @relation("betting_lines_home_team_idToteams", fields: [home_team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model games {
+  id                 BigInt    @id
+  season             Int?
+  week               Int?
+  season_type        String?   @db.VarChar(50)
+  start_date         DateTime? @db.Date
+  neutral_site       Boolean?
+  conference_game    Boolean?
+  attendance         Int?
+  venue_id           Int?
+  venue              String?   @db.VarChar(100)
+  home_team_id       Int?
+  home_team          String?   @db.VarChar(100)
+  home_conference    String?   @db.VarChar(50)
+  home_points        Int?
+  home_line_1        Int?
+  home_line_2        Int?
+  home_line_3        Int?
+  home_line_4        Int?
+  home_post_win_prob Float?
+  home_pregame_elo   Int?
+  home_postgame_elo  Int?
+  away_team_id       Int?
+  away_team          String?   @db.VarChar(100)
+  away_conference    String?   @db.VarChar(50)
+  away_points        Int?
+  away_line_1        Int?
+  away_line_2        Int?
+  away_line_3        Int?
+  away_line_4        Int?
+  away_post_win_prob Float?
+  away_pregame_elo   Int?
+  away_postgame_elo  Int?
+  excitement_index   Float?
 }
