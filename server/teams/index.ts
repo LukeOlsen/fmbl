@@ -1,41 +1,71 @@
 import express from "express";
 import { prisma } from "../server";
+import { findTeamInfo } from "../db/teams";
 
 const router = express.Router();
+
+type teamScores = {
+  team1: number[];
+  team2: number[];
+};
+
+type gameScore = {
+  home_team_id: number | null;
+  home_points: number | null;
+  away_points: number | null;
+  away_team_id: number | null;
+};
+
+// Take an array of two teams scores
+// and find the averages between the two
+const averageTeamScores = (
+  twoScores: teamScores
+): { team1: number; team2: number } => {
+  const team1 =
+    twoScores.team1.reduce((a, b) => a + b, 0) / twoScores.team1.length;
+  const team2 =
+    twoScores.team2.reduce((a, b) => a + b, 0) / twoScores.team2.length;
+  return { team1, team2 };
+};
 
 router.get("/:team", async (req, res) => {
   const { team } = req.params;
   const { year } = req.query;
-  const teams: object | null = await prisma.teams.findMany({
-    where: {
-      school: team,
+  const teams: object | null = await findTeamInfo(Number(team), Number(year));
+  res.send(teams);
+});
+
+router.get("/:team/averageScore", async (req, res) => {
+  const { team } = req.params;
+  const { year } = req.query;
+
+  const team_id: number = Number(team);
+
+  let teamGames: gameScore[] | null = await prisma.games.findMany({
+    select: {
+      home_team_id: true,
+      home_points: true,
+      away_points: true,
+      away_team_id: true,
     },
-    include: {
-      records: {
-        select: {
-          total_games: true,
-          total_wins: true,
-          total_losses: true,
-        },
-        where: {
-          year: Number(year) ? Number(year) : 2020,
-        },
-      },
-      recruits: {
-        select: {
-          name: true,
-          position: true,
-          stars: true,
-          rating: true,
-        },
-        where: {
-          year: Number(year) ? Number(year) + 1 : 2021,
-        },
-      },
+    where: {
+      OR: [{ home_team_id: team_id }, { away_team_id: team_id }],
+      season: Number(year) ? Number(year) : new Date().getFullYear(),
+      NOT: [{ home_points: null }],
     },
   });
-  await prisma.$disconnect();
-  res.send(teams);
+  let teamTotal: number = 0;
+  if (teamGames && teamGames.length > 0) {
+    teamGames.forEach((game: gameScore) => {
+      if (game.home_team_id === team_id) {
+        teamTotal += Number(game.home_points);
+      } else {
+        teamTotal += Number(game.away_points);
+      }
+    });
+    teamTotal = teamTotal / teamGames.length;
+  }
+  return res.json(teamTotal);
 });
 
 export default router;
