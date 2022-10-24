@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {
-    "client": "cd client/src && npm start",
+    "client": "cd src/client/src && npm start",
     "start": "tsc && node build/server.js",
-    "server": "nodemon --config \"./util/nodemon.json\"/",
+    "server": "nodemon --config \"./nodemon.json\"/",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "kill": "kill $(lsof -t -i:3001) | exit 0"
   },
   "dependencies": {
-    "@prisma/client": "^3.9.2",
+    "@prisma/client": "^4.5.0",
     "@types/cheerio": "^0.22.18",
     "axios": "^0.21.1",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "cheerio": "^1.0.0-rc.3",
     "d3": "^7.1.1",
     "dotenv": "^8.2.0",
@@ -28,10 +28,11 @@
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.6",
+    "@types/jest": "^29.2.0",
     "@types/sequelize": "^4.28.8",
     "concurrently": "^4.1.2",
     "kill-port": "^1.6.0",
-    "prisma": "^3.9.2",
+    "prisma": "^4.5.0",
     "tslint": "^6.1.2",
     "typescript": "^4.7.4"
   }

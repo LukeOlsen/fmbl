@@ -1,6 +1,6 @@
 import express from "express";
-import { prisma } from "../server";
-import { findTeamInfo } from "../db/teams";
+import { prisma } from "../../server";
+import { findTeamInfo } from "../../db/teams";
 
 const router = express.Router();
 

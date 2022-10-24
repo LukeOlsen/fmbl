@@ -89,7 +89,6 @@ model teams {
   talents                                         talents[]       @ignore
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model drives {
   offense             String?
   offense_conference  String?
@@ -153,9 +152,8 @@ model pbp2020 {
   teams              teams?   @relation(fields: [team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
 model betting_lines {
-  game_id                                 Int?
+  game_id                                 BigInt?
   home_team                               String?
   home_score                              Int?
   away_Team                               String?
@@ -171,24 +169,26 @@ model betting_lines {
   id                                      Int     @id @unique(map: "lines_pkey") @default(autoincrement())
   home_team_id                            Int?
   away_team_id                            Int?
+  season                                  Int?
   teams_betting_lines_away_team_idToteams teams?  @relation("betting_lines_away_team_idToteams", fields: [away_team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   teams_betting_lines_home_team_idToteams teams?  @relation("betting_lines_home_team_idToteams", fields: [home_team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  games                                   games?  @relation(fields: [game_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "gamessk")
 }
 
 model games {
-  id                 BigInt    @id
+  id                 BigInt          @id
   season             Int?
   week               Int?
-  season_type        String?   @db.VarChar(50)
-  start_date         DateTime? @db.Date
+  season_type        String?         @db.VarChar(50)
+  start_date         DateTime?       @db.Date
   neutral_site       Boolean?
   conference_game    Boolean?
   attendance         Int?
   venue_id           Int?
-  venue              String?   @db.VarChar(100)
+  venue              String?         @db.VarChar(100)
   home_team_id       Int?
-  home_team          String?   @db.VarChar(100)
-  home_conference    String?   @db.VarChar(50)
+  home_team          String?         @db.VarChar(100)
+  home_conference    String?         @db.VarChar(50)
   home_points        Int?
   home_line_1        Int?
   home_line_2        Int?
@@ -198,8 +198,8 @@ model games {
   home_pregame_elo   Int?
   home_postgame_elo  Int?
   away_team_id       Int?
-  away_team          String?   @db.VarChar(100)
-  away_conference    String?   @db.VarChar(50)
+  away_team          String?         @db.VarChar(100)
+  away_conference    String?         @db.VarChar(50)
   away_points        Int?
   away_line_1        Int?
   away_line_2        Int?
@@ -209,4 +209,5 @@ model games {
   away_pregame_elo   Int?
   away_postgame_elo  Int?
   excitement_index   Float?
+  betting_lines      betting_lines[]
 }

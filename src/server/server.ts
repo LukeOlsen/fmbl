@@ -2,7 +2,8 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import * as bodyParser from "body-parser";
-import teams from "./teams";
+import teams from "./api/v1/teams";
+import lines from "./api/v1/lines";
 import { creatCache, cache } from "./cache/cache";
 // import * as pino from "express-pino-logger";
 
@@ -11,6 +12,8 @@ export const prisma = new PrismaClient();
 
 export const app = express();
 app.use("/api/team", teams);
+// console.log(lines);
+app.use("/api/lines", lines);
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(pino);
 

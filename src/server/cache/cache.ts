@@ -1,6 +1,6 @@
 import { prisma } from "../server";
 
-export const cache: any = {};
+export const cache: { teams: Cache.Teams[] | null } = { teams: null };
 
 export const creatCache = async () => {
   cache.teams = await prisma.teams.findMany({
