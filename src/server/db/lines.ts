@@ -1,15 +1,5 @@
+import { Line } from "src/@types/lines";
 import { prisma } from "../server";
-
-interface Line {
-  id: bigint;
-  betting_lines: {
-    home_moneyline: number | null;
-    away_moneyline: number | null;
-    over_under: number | null;
-    formatted_spread: string | null;
-  }[];
-}
-[];
 
 export const findLines = async (season: number) => {
   const lines: Line[] | null = await prisma.games.findMany({
@@ -30,6 +20,7 @@ export const findLines = async (season: number) => {
           away_moneyline: true,
           over_under: true,
           formatted_spread: true,
+          spread: true,
         },
       },
     },
