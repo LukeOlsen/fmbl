@@ -1,31 +1,40 @@
 import * as dotenv from "dotenv";
 dotenv.config();
-import express from "express";
+// import compression from "compression";
+import express, { Router } from "express";
+import helmet from "helmet";
 import * as bodyParser from "body-parser";
-import teams from "./api/v1/teams";
-import lines from "./api/v1/lines";
-import { creatCache, cache } from "./cache/cache";
+import api from "./api";
+import { creatCache, cache } from "./cache";
 // import * as pino from "express-pino-logger";
 
 import { PrismaClient } from "@prisma/client";
 export const prisma = new PrismaClient();
 
 export const app = express();
-app.use("/api/team", teams);
-// console.log(lines);
-app.use("/api/lines", lines);
+app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(pino);
+const router = Router();
+router.use("/api", api);
 
-app.get("/api/greeting", (req: any, res: any) => {
-  const name = req.query.name || "World";
-  res.setHeader("Content-Type", "application/json");
-  res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
+router.get("/greeting", (req, res) => {
+  res.send("Welcome to the API");
 });
 
-app.get("/api/cache", (req: any, res: any) => {
-  res.send(cache);
-});
+// router.use(compression());
+
+// app.get("/api/greeting", (req: any, res: any) => {
+//   const name = req.query.name || "World";
+//   res.setHeader("Content-Type", "application/json");
+//   res.send(JSON.stringify({ greeting: `Hello ${name}!` }));
+// });
+
+// app.get("/api/cache", (req: any, res: any) => {
+//   res.send(cache);
+// });
+
+app.use(router);
 
 app.listen(3001, async () => {
   await creatCache();
