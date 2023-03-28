@@ -12,14 +12,20 @@ const averageLines = (lines: Line[], teams: Cache.Teams[]) => {
     [key: string]: {
       id: number;
       team: string | null;
-      spreadTrack: number;
+      line: number;
+      gameCount: number;
+      opponentList: string[];
+      conference: string | null;
     };
   } = {};
   teams?.forEach((team) => {
     teamLines[team.school || "school"] = {
       id: team.id,
       team: team.school,
-      spreadTrack: 0,
+      line: 0,
+      gameCount: 0,
+      opponentList: [],
+      conference: null,
     };
   });
 
@@ -44,26 +50,36 @@ const averageLines = (lines: Line[], teams: Cache.Teams[]) => {
           awayPointDiff = awayPointDiff + spread;
         }
 
-        teamLines[line.home_team || "school"].spreadTrack += homePointDiff;
-        teamLines[line.away_team || "school"].spreadTrack += awayPointDiff;
+        teamLines[line.home_team || "school"].conference = line.home_conference;
+        teamLines[line.away_team || "school"].conference = line.away_conference;
+
+        teamLines[line.home_team || "school"].line += homePointDiff;
+        teamLines[line.away_team || "school"].line += awayPointDiff;
+        teamLines[line.home_team || "school"].gameCount += 1;
+        teamLines[line.away_team || "school"].gameCount += 1;
+        teamLines[line.away_team || "school"].opponentList.push(
+          teamLines[line.home_team || "school"].team || "school"
+        );
+        teamLines[line.home_team || "school"].opponentList.push(
+          teamLines[line.away_team || "school"].team || "school"
+        );
       }
     }
   });
   return teamLines;
 };
 
-router.get("/", async (req, res) => {
+router.get("/:year", async (req, res) => {
   try {
-    const { year } = req.query;
+    const { year } = req.params;
     if (!year) {
       return res.status(400).send("Missing year");
     }
     const lines = await findLines(Number(year));
     const avgLines = averageLines(lines, cache.teams || []);
     // sort the lines by the spreadTrack
-    const sortedLines = Object.values(avgLines).sort(
-      (a, b) => b.spreadTrack - a.spreadTrack
-    );
+    const sortedLines = Object.values(avgLines).sort((a, b) => b.line - a.line);
+
     const stringify: string = dataToString(sortedLines);
     return res.send(stringify);
   } catch (err) {

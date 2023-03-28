@@ -10,8 +10,10 @@ export const findLines = async (season: number) => {
       id: true,
       home_team: true,
       home_team_id: true,
+      home_conference: true,
       away_team: true,
       away_team_id: true,
+      away_conference: true,
       home_points: true,
       away_points: true,
       betting_lines: {

@@ -3,7 +3,8 @@ import { all } from "redux-saga/effects";
 import testRootSaga from "./testSagas";
 import teamRootSaga from "./teamSaga";
 import cacheRootSaga from "./cacheSaga";
+import linesRootSaga from "./linesSaga";
 
 export default function* rootSaga() {
-  yield all([testRootSaga(), teamRootSaga(), cacheRootSaga()]);
+  yield all([testRootSaga(), teamRootSaga(), cacheRootSaga(), linesRootSaga()]);
 }

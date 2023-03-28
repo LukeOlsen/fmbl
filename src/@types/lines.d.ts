@@ -4,8 +4,10 @@ export interface Line {
   home_team_id: number | null;
   away_team: string | null;
   away_team_id: number | null;
+  home_conference: string | null;
   home_points: number | null;
   away_points: number | null;
+  away_conference: string | null;
   betting_lines: {
     home_moneyline: number | null;
     away_moneyline: number | null;
