@@ -5,6 +5,8 @@ import { GET_TEAM, AVAILABLE_YEARS } from "../constants";
 import { recordsBlock } from "../types/records";
 import { recruit } from "../types/recruits";
 import { teamBlock } from "../types/teams";
+import { YearSelector } from "./utils";
+import GamesTable from "./data/GamesTable";
 
 import RecruitsTable from "./data/RecruitsTable";
 
@@ -12,23 +14,8 @@ type RParam = { teamName: string };
 interface teamProp extends teamBlock {
   records: [recordsBlock];
   recruits: [recruit];
+  games: [any];
 }
-
-const YearSelector = ({ selectedYear, updateYear, years }: any) => {
-  return (
-    <select
-      className="flex-1"
-      value={selectedYear}
-      onChange={(e) => updateYear(e.target.value)}
-    >
-      {years.map((year: any) => (
-        <option key={year} value={year}>
-          {year}
-        </option>
-      ))}
-    </select>
-  );
-};
 
 export const Team = (props: any) => {
   let params = useParams();
@@ -97,6 +84,13 @@ export const Team = (props: any) => {
       <div className="flex">
         {team?.recruits && team?.recruits.length > 0 ? (
           <RecruitsTable recruits={team.recruits} />
+        ) : (
+          ""
+        )}
+      </div>
+      <div className="flex">
+        {team?.games && team?.games.length > 0 ? (
+          <GamesTable games={team.games} />
         ) : (
           ""
         )}

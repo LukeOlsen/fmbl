@@ -1,6 +1,8 @@
 import express from "express";
 import { prisma } from "../../server";
 import { findTeamInfo } from "../../db/teams";
+import { findGames } from "../../db/games";
+import { dataToString } from "../../helpers";
 
 const router = express.Router();
 
@@ -29,10 +31,18 @@ const averageTeamScores = (
 };
 
 router.get("/:team", async (req, res) => {
-  const { team } = req.params;
-  const { year } = req.query;
-  const teams: object | null = await findTeamInfo(Number(team), Number(year));
-  res.send(teams);
+  try {
+    console.log("hit");
+    const { team } = req.params;
+    const { year } = req.query;
+    let teams: any | null = await findTeamInfo(Number(team), Number(year));
+    teams[0].games = await findGames(Number(team), Number(year));
+    teams[0].games = dataToString(teams[0].games);
+    return res.json(teams);
+  } catch (err) {
+    console.log(err);
+    return res.json({ error: err });
+  }
 });
 
 router.get("/:team/averageScore", async (req, res) => {
