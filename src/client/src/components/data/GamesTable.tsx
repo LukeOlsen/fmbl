@@ -47,7 +47,6 @@ const GamesTable = (props: {
       </thead>
       {games.length > 1 &&
         games.map((game) => {
-          console.log(game);
           return (
             <tbody className="border border-indigo-600" key={game.id}>
               <tr className="border border-indigo-600">
