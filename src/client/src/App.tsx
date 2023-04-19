@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Team } from "./components/Team";
 import { Navbar } from "./components/Navbar";
 import { Home } from "./components/Home";
+import { Lines } from "./components/lines";
 import { routesWithComponents } from "./types/components";
 
 const routes: Array<routesWithComponents> = [
@@ -25,6 +26,11 @@ const routes: Array<routesWithComponents> = [
   //   path: '/conferences',
   //   component: 'Conferences'
   // }
+  {
+    path: "/bettinglines/:year",
+    component: <Lines />,
+    name: "Lines",
+  },
 ];
 
 const routeComponents = routes.map(({ path, component }, key) => (

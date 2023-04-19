@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { teamBlock } from "../types/teams";
 
@@ -21,11 +22,11 @@ const ConferenceSection = (props: {
           <div>{conf}</div>
           <FontAwesomeIcon
             className={`${show ? "hidden" : "block"} mx-2`}
-            icon={faAngleDown}
+            icon={faAngleDown as IconProp}
           />
           <FontAwesomeIcon
             className={`${show ? "block" : "hidden"} mx-2`}
-            icon={faAngleUp}
+            icon={faAngleUp as IconProp}
           />
         </div>
       </button>
@@ -158,6 +159,12 @@ export const Navbar = ({ teams }: any) => {
         >
           Contact
         </a>
+        <Link
+          className="block px-4 py-2 sm:mt-2 text-sm font-semibold sm:rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-400  focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          to="/bettingLines/2021"
+        >
+          Spread Calculator
+        </Link>
         <ConferenceSection
           conf={"ACC"}
           teams={ACC}
