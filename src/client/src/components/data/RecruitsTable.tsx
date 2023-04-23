@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 const StarList = (stars: number) => {
   let starList = [];
   for (let i = 0; i < stars; i++) {
-    starList.push(<FontAwesomeIcon icon={faStar} />);
+    starList.push(<FontAwesomeIcon icon={faStar as IconProp} />);
   }
   return starList;
 };
