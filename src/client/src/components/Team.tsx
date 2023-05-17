@@ -9,12 +9,15 @@ import { YearSelector } from "./utils";
 import GamesTable from "./data/GamesTable";
 
 import RecruitsTable from "./data/RecruitsTable";
+import StatsTable from "./data/TeamStats";
+import RecruitsMap from "./data/RecruitsMap";
 
 type RParam = { teamName: string };
 interface teamProp extends teamBlock {
   records: [recordsBlock];
   recruits: [recruit];
   games: [any];
+  team_stats: Array<{ stat_name: string; stat_value: number }>;
 }
 
 export const Team = (props: any) => {
@@ -49,14 +52,16 @@ export const Team = (props: any) => {
   }, [selectedYear]);
 
   return (
-    <div className="mt-2">
+    <div className="mt-2 overflow-y-auto h-screen">
       <div className="flex mb-10">
         {team && <div className="flex-1 text-4xl mx-4">{team.school}</div>}
-        <YearSelector
-          selectedYear={selectedYear}
-          updateYear={updateYear}
-          years={AVAILABLE_YEARS}
-        />
+        <div>
+          <YearSelector
+            selectedYear={selectedYear}
+            updateYear={updateYear}
+            years={AVAILABLE_YEARS}
+          />
+        </div>
         <div>
           {team && (
             <div className="flex-1 flex pr-10">
@@ -81,16 +86,40 @@ export const Team = (props: any) => {
           )}
         </div>
       </div>
-      <div className="flex">
-        {team?.recruits && team?.recruits.length > 0 ? (
-          <RecruitsTable recruits={team.recruits} />
+
+      <div className="flex mt-2">
+        {team?.games && team?.games.length > 0 ? (
+          <div className="my-4">
+            <GamesTable games={team.games} />
+          </div>
+        ) : (
+          ""
+        )}
+        {team?.team_stats && team?.team_stats.length > 0 ? (
+          <div className="flex m-4">
+            <div className="">
+              <StatsTable stats={team.team_stats} />
+            </div>
+          </div>
         ) : (
           ""
         )}
       </div>
-      <div className="flex">
-        {team?.games && team?.games.length > 0 ? (
-          <GamesTable games={team.games} />
+      <div></div>
+      <div className="flex justify-center">
+        {team?.recruits && team?.recruits.length > 0 ? (
+          <div className="w-3/4 m-4">
+            <RecruitsTable recruits={team.recruits} />
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
+      <div className="flex justify-center">
+        {team?.recruits && team?.recruits.length > 0 ? (
+          <div className="w-3/4 m-4">
+            <RecruitsMap team={team} recruits={team.recruits} />
+          </div>
         ) : (
           ""
         )}
