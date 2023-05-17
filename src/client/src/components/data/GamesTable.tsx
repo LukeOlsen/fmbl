@@ -35,31 +35,74 @@ const GamesTable = (props: {
   const { games } = props;
 
   return (
-    <table className="table-fixed flex-1 w-full text-center border border-indigo-600 mx-4">
-      <thead className="text-xl border border-indigo-600">
-        <tr className="border border-indigo-600">
-          <th className="border border-indigo-600">Week</th>
-          <th className="border border-indigo-600">Home Team</th>
-          <th className="border border-indigo-600">Home Points</th>
-          <th className="border border-indigo-600">Away Points</th>
-          <th className="border border-indigo-600">Away Team</th>
-        </tr>
-      </thead>
-      {games.length > 1 &&
-        games.map((game) => {
-          return (
-            <tbody className="border border-indigo-600" key={game.id}>
-              <tr className="border border-indigo-600">
-                <td className="border border-indigo-600">{game.week}</td>
-                <td className="border border-indigo-600">{game.home_team}</td>
-                <td className="border border-indigo-600">{game.home_points}</td>
-                <td className="border border-indigo-600">{game.away_points}</td>
-                <td className="border border-indigo-600">{game.away_team}</td>
-              </tr>
-            </tbody>
-          );
-        })}
-    </table>
+    <div className="flex flex-col">
+      <div className="-m-1.5 overflow-x-auto">
+        <div className="p-1.5 min-w-full inline-block align-middle">
+          <div className="overflow-hidden">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                  >
+                    Week
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                  >
+                    Home Team
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                  >
+                    Home Points
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                  >
+                    Away Points
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                  >
+                    Away Team
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                {games.length > 1 &&
+                  games.map((game) => {
+                    return (
+                      <tr key={game.id}>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                          {game.week}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                          {game.home_team}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                          {game.home_points}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                          {game.away_points}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                          {game.away_team}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
